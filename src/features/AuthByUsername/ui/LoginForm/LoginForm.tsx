@@ -1,14 +1,10 @@
-import { useTranslation } from 'react-i18next';
+import { Button, Typography, Input, Flex } from 'antd';
+const { Text } = Typography
+
 import { useSelector } from 'react-redux';
 import { memo, useCallback } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import {
-    Button as ButtonDeprecated,
-    ButtonTheme,
-} from '@/shared/ui/deprecated/Button';
-import { Input as InputDeprecated } from '@/shared/ui/deprecated/Input';
-import { Text as TextDeprecated, TextTheme } from '@/shared/ui/deprecated/Text';
-import { Text } from '@/shared/ui/redesigned/Text';
+
 import {
     DynamicModuleLoader,
     ReducersList,
@@ -21,10 +17,7 @@ import { getLoginError } from '../../model/selectors/getLoginError/getLoginError
 import { loginByUsername } from '../../model/services/loginByUsername/loginByUsername';
 import { loginActions, loginReducer } from '../../model/slice/loginSlice';
 import cls from './LoginForm.module.scss';
-import { ToggleFeatures } from '@/shared/lib/features';
-import { Button } from '@/shared/ui/redesigned/Button';
-import { Input } from '@/shared/ui/redesigned/Input';
-import { VStack } from '@/shared/ui/redesigned/Stack';
+
 import { useForceUpdate } from '@/shared/lib/render/forceUpdate';
 
 export interface LoginFormProps {
@@ -37,7 +30,6 @@ const initialReducers: ReducersList = {
 };
 
 const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
-    const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const username = useSelector(getLoginUsername);
     const password = useSelector(getLoginPassword);
@@ -69,33 +61,30 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 
     return (
         <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
-            <ToggleFeatures
-                feature="isAppRedesigned"
-                on={
-                    <VStack
+                    <Flex
                         gap="16"
                         className={classNames(cls.LoginForm, {}, [className])}
                     >
-                        <Text title={t('Форма авторизации')} />
+                        <Text title={'Форма авторизации'} />
                         {error && (
                             <Text
-                                text={t('Вы ввели неверный логин или пароль')}
-                                variant="error"
+                                content={'Вы ввели неверный логин или пароль'}
+                                color='error'
                             />
                         )}
                         <Input
-                            autofocus
+                            autoFocus
                             type="text"
                             className={cls.input}
-                            placeholder={t('Введите username')}
-                            onChange={onChangeUsername}
+                            placeholder={'Введите username'}
+                            onChange={(e) => onChangeUsername(e.target.value)}
                             value={username}
                         />
                         <Input
                             type="text"
                             className={cls.input}
-                            placeholder={t('Введите пароль')}
-                            onChange={onChangePassword}
+                            placeholder={'Введите пароль'}
+                            onChange={(e) => onChangePassword(e.target.value)}
                             value={password}
                         />
                         <Button
@@ -103,45 +92,9 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
                             onClick={onLoginClick}
                             disabled={isLoading}
                         >
-                            {t('Войти')}
+                            {'Войти'}
                         </Button>
-                    </VStack>
-                }
-                off={
-                    <div className={classNames(cls.LoginForm, {}, [className])}>
-                        <TextDeprecated title={t('Форма авторизации')} />
-                        {error && (
-                            <TextDeprecated
-                                text={t('Вы ввели неверный логин или пароль')}
-                                theme={TextTheme.ERROR}
-                            />
-                        )}
-                        <InputDeprecated
-                            autofocus
-                            type="text"
-                            className={cls.input}
-                            placeholder={t('Введите username')}
-                            onChange={onChangeUsername}
-                            value={username}
-                        />
-                        <InputDeprecated
-                            type="text"
-                            className={cls.input}
-                            placeholder={t('Введите пароль')}
-                            onChange={onChangePassword}
-                            value={password}
-                        />
-                        <ButtonDeprecated
-                            theme={ButtonTheme.OUTLINE}
-                            className={cls.loginBtn}
-                            onClick={onLoginClick}
-                            disabled={isLoading}
-                        >
-                            {t('Войти')}
-                        </ButtonDeprecated>
-                    </div>
-                }
-            />
+                    </Flex>
         </DynamicModuleLoader>
     );
 });

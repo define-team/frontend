@@ -1,0 +1,1 @@
+export { DevicesPageAsync as DevicePage } from './ui/DevicesPage/DevicePage.async';

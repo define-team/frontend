@@ -11,7 +11,11 @@ export interface User {
     jsonSettings?: JsonSettings;
 }
 
+export interface Admin {
+    token: string
+}
+
 export interface UserSchema {
-    authData?: User;
+    authData?: Admin;
     _inited: boolean;
 }

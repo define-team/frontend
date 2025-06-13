@@ -1,0 +1,1 @@
+export { RolePageAsync as RolePage } from './ui/RolesPage/RolePage.async';

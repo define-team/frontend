@@ -19,8 +19,8 @@ const userApi = rtkApi.injectEndpoints({
             }),
         }),
         getUserDataById: build.query<User, string>({
-            query: (userId) => ({
-                url: `/users/${userId}`,
+            query: () => ({
+                url: `/admin/operations`,
                 method: 'GET',
             }),
         }),

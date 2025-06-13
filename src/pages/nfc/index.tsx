@@ -50,7 +50,7 @@ const dataSource = [
     actions: el.actions.map((action) => <Button key={action} style={{ marginRight: '15px' }}>{action}</Button>)
   }));
 
-const Keys = () => {
+const Nfc = () => {
     return (
         <>
             <Typography.Title level={3}>Управление NFC-метками</Typography.Title>
@@ -64,4 +64,4 @@ const Keys = () => {
     )
 }
 
-export default Keys
+export default Nfc

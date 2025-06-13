@@ -14,6 +14,12 @@ import { ArticlesPageSchema } from '@/pages/ArticlesPage';
 import { UISchema } from '@/features/UI';
 import { rtkApi } from '@/shared/api/rtkApi';
 import { ProfileSchema } from '@/features/editableProfileCard';
+import { EditableDeviceSchema } from '@/features/editableDeviceItem/model/types/editableDeviceItemSchema';
+import { EditableKeySchema } from '@/features/editableKeyItem/model/types/editableKeyItemSchema';
+import { EditableKeySlotSchema } from '@/features/editableKeySlotItem/model/types/editableKeySlotItemSchema';
+import { EditableUserItemSchema } from '@/features/editableUserItem/model/types/editableKeyItemSchema';
+import { EditableRoleSchema } from '@/features/editableRoleItem/model/types/editableRoleItemSchema';
+import { EditableLogsSchema } from '@/features/OperationFilters/model/types/editableDeviceItemSchema';
 
 type OptionalRecord<K extends keyof any, T> = {
   [P in K]?: T;
@@ -25,6 +31,12 @@ export interface StateSchema {
     [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 
     // Асинхронные редюсеры
+    device?: EditableDeviceSchema;
+    key?: EditableKeySchema;
+    keySlot?: EditableKeySlotSchema
+    users?: EditableUserItemSchema
+    role?: EditableRoleSchema
+    operations?: EditableLogsSchema
     loginForm?: LoginSchema;
     profile?: ProfileSchema;
     articleDetails?: ArticleDetailsSchema;

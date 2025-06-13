@@ -1,0 +1,1 @@
+export { KeySlotsPageAsync as KeySlotPage } from './ui/KeySlotsPage/KeySlotsPage.async';

@@ -1,80 +1,67 @@
-import { MainPage } from '@/pages/MainPage';
-import { AboutPage } from '@/pages/AboutPage';
-import { ProfilePage } from '@/pages/ProfilePage';
-import { ArticlesPage } from '@/pages/ArticlesPage';
-import { ArticleDetailsPage } from '@/pages/ArticleDetailsPage';
-import { ArticleEditPage } from '@/pages/ArticleEditPage';
-import { AdminPanelPage } from '@/pages/AdminPanelPage';
-import { UserRole } from '@/entities/User';
-import { ForbiddenPage } from '@/pages/ForbiddenPage';
-import { NotFoundPage } from '@/pages/NotFoundPage';
 import {
     AppRoutes,
-    getRouteAbout,
-    getRouteAdmin,
-    getRouteArticleCreate,
-    getRouteArticleDetails,
-    getRouteArticleEdit,
     getRouteForbidden,
-    getRouteArticles,
     getRouteMain,
-    getRouteProfile,
-    getRouteSettings,
+    getRouteUsers,
+    getRouteEvents,
+    getRouteKeys,
+    getRouteDevices,
+    getRouteKeySlots,
+    getRouteRoles,
 } from '@/shared/const/router';
 import { AppRoutesProps } from '@/shared/types/router';
-import { SettingsPage } from '@/pages/SettingsPage';
+import LayoutPage from '@/pages/layout';
+import NotFound from '@/pages/not-found';
+import Forbidden from '@/pages/Forbidden';
+import { DevicePage } from '@/pages/Devices';
+import { KeyPage } from '@/pages/Keys';
+import { KeySlotsPageAsync } from '@/pages/KeySlots/ui/KeySlotsPage/KeySlotsPage.async';
+import { UsersPageAsync } from '@/pages/Users/ui/UsersPage/UsersPage.async';
+import { RolePageAsync } from '@/pages/Roles/ui/RolesPage/RolePage.async';
+import { LogsPageAsync } from '@/pages/events/ui/LogsPage/LogsPage.async';
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.MAIN]: {
         path: getRouteMain(),
-        element: <MainPage />,
-    },
-    [AppRoutes.SETTINGS]: {
-        path: getRouteSettings(),
-        element: <SettingsPage />,
-    },
-    [AppRoutes.ABOUT]: {
-        path: getRouteAbout(),
-        element: <AboutPage />,
-    },
-    [AppRoutes.PROFILE]: {
-        path: getRouteProfile(':id'),
-        element: <ProfilePage />,
+        element: <LayoutPage />,
         authOnly: true,
     },
-    [AppRoutes.ARTICLES]: {
-        path: getRouteArticles(),
-        element: <ArticlesPage />,
+    [AppRoutes.ROLES]: {
+        path: getRouteRoles(),
+        element: <RolePageAsync />,
         authOnly: true,
     },
-    [AppRoutes.ARTICLE_DETAILS]: {
-        path: getRouteArticleDetails(':id'),
-        element: <ArticleDetailsPage />,
+    [AppRoutes.USERS]: {
+        path: getRouteUsers(),
+        element: <UsersPageAsync />,
         authOnly: true,
     },
-    [AppRoutes.ARTICLE_CREATE]: {
-        path: getRouteArticleCreate(),
-        element: <ArticleEditPage />,
+    [AppRoutes.KEYS]: {
+        path: getRouteKeys(),
+        element: <KeyPage />,
         authOnly: true,
     },
-    [AppRoutes.ARTICLE_EDIT]: {
-        path: getRouteArticleEdit(':id'),
-        element: <ArticleEditPage />,
+    [AppRoutes.EVENTS]: {
+        path: getRouteEvents(),
+        element: <LogsPageAsync />,
         authOnly: true,
     },
-    [AppRoutes.ADMIN_PANEL]: {
-        path: getRouteAdmin(),
-        element: <AdminPanelPage />,
+    [AppRoutes.DEVICES]: {
+        path: getRouteDevices(),
+        element: <DevicePage />,
         authOnly: true,
-        roles: [UserRole.ADMIN],
+    },
+    [AppRoutes.KEY_SLOTS]: {
+        path: getRouteKeySlots(),
+        element: <KeySlotsPageAsync />,
+        authOnly: true,
     },
     [AppRoutes.FORBIDDEN]: {
         path: getRouteForbidden(),
-        element: <ForbiddenPage />,
+        element: <Forbidden />,
     },
-    // last
     [AppRoutes.NOT_FOUND]: {
         path: '*',
-        element: <NotFoundPage />,
+        element: <NotFound />,
     },
 };
